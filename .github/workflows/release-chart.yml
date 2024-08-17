@@ -33,7 +33,7 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             if [ -z "${{ github.event.inputs.chart }}" ]; then
-              charts=$(ls -d charts/* | jq -R -s -c 'split("\n")[:-1]')
+              charts=$(ls -d charts/* | sed 's|charts/||' | jq -R -s -c 'split("\n")[:-1]')
             else
               charts="[\"${{ github.event.inputs.chart }}\"]"
             fi
