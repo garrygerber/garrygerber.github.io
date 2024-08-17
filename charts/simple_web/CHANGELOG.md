@@ -1,4 +1,27 @@
-# 0.2.0 (2024-08-17)
+# [0.3.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.2.1...simple_web-v0.3.0) (2024-08-17)
+
+
+### Bug Fixes
+
+* :green_heart: add back the commit in changelog ([24f39e3](https://github.com/garrygerber/garrygerber.github.io/commit/24f39e3144f3158c368e5568fa09f18e584ab319))
+
+
+### Features
+
+* :sparkles: add keda scaler object ([ae6e4bc](https://github.com/garrygerber/garrygerber.github.io/commit/ae6e4bcbe66f34018ff102dcdcd9733efbe3b803))
+
+
+
+## [0.2.1](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.2.0...simple_web-v0.2.1) (2024-08-17)
+
+
+### Bug Fixes
+
+* :bug: fix get changed charts in dispatch call ([3ac23fd](https://github.com/garrygerber/garrygerber.github.io/commit/3ac23fd79da78532a273b526ea2888ca9dd6d4f1))
+
+
+
+# [0.2.0](https://github.com/garrygerber/garrygerber.github.io/compare/11a29db00c2c771573375330fd9f45b1ef0b591a...simple_web-v0.2.0) (2024-08-17)
 
 
 ### Bug Fixes
