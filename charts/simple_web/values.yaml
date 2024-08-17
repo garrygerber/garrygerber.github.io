@@ -9,6 +9,16 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+service:
+  enabled: true
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  type: ClusterIP
+  createVersionedService: true
+
 container:
   resources:
     limits:
