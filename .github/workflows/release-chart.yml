@@ -36,7 +36,7 @@ jobs:
             changed_charts=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^charts/' | cut -d/ -f2 | sort -u)
             charts=$(echo "$changed_charts" | jq -R -s -c 'split("\n")[:-1]')
           fi
-          echo "::set-output name=charts::$charts"
+          echo "charts=$charts" >> $GITHUB_OUTPUT
 
   release:
     needs: prepare
