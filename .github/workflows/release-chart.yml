@@ -64,6 +64,21 @@ jobs:
 
       - name: Install Helm
         uses: azure/setup-helm@v4
+
+      - name: Run helm lint
+        run: |
+          helm lint ./charts/${{ matrix.chart }}
+
+      - name: Generate changelog
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-file: './charts/${{ matrix.chart }}/Chart.yaml'
+          version-path: 'version'
+          output-file: './charts/${{ matrix.chart }}/CHANGELOG.md'
+          tag-prefix: '${{ matrix.chart }}-v'
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
         env:
@@ -71,7 +86,4 @@ jobs:
         with:
           charts_dir: charts
 
-      - name: Run helm lint
-        run: |
-          helm lint ./charts/${{ matrix.chart }}
 
