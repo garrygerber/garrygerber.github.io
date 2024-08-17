@@ -90,3 +90,7 @@ readinessProbe:
 
 kedaScaler:
   enabled: false
+
+podDisruptionBudget:
+  enabled: true
+  maxUnavailable: 1
