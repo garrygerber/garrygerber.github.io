@@ -7,9 +7,9 @@ appVersion: "1.0.0"
 keywords:
   - web
   - simple
-home: https://github.com/garrygerber/simple-web-app
+home: https://github.com/garrygerber/simple-web
 sources:
-  - https://github.com/garrygerber/simple-web-app
+  - https://github.com/garrygerber/simple-web
 maintainers:
   - name: Garry Gerber
     email: garry@garrygerber.com
