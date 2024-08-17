@@ -12,6 +12,11 @@ on:
         description: 'Chart to release (leave empty to release all)'
         required: false
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -41,6 +46,8 @@ jobs:
   release:
     needs: prepare
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     strategy:
       matrix:
         chart: ${{fromJson(needs.prepare.outputs.charts)}}
