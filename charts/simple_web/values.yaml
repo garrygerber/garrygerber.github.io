@@ -71,6 +71,18 @@ ingress:
                 port: 
                   number: 80
 
+networkPolicy:
+  enabled: true
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector: {}
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
 
 
 nodeSelector: {}
