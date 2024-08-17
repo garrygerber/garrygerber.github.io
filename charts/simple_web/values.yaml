@@ -54,6 +54,24 @@ containerSecurityContext:
 
 imagePullSecrets: {}
 
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  tls: {}
+  hosts:
+    - host: garry.acrinterview.com
+      http:
+        paths:
+          - path: /garry
+            pathType: Prefix
+            backend:
+              service:
+                name: "{{ include \"simple-web.versionedName\" . }}"
+                port: 
+                  number: 80
+
+
 
 nodeSelector: {}
 
