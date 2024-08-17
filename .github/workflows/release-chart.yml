@@ -78,6 +78,9 @@ jobs:
           version-path: 'version'
           output-file: './charts/${{ matrix.chart }}/CHANGELOG.md'
           tag-prefix: '${{ matrix.chart }}-v'
+          create-summary: 'true'
+          skip-git-pull: 'true'
+          skip-commit: 'true'
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.6.0
