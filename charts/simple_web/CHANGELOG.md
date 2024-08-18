@@ -1,3 +1,12 @@
+## [0.5.2](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.1...simple_web-v0.5.2) (2024-08-18)
+
+
+### Bug Fixes
+
+* :bug: fix scale object ([40681f6](https://github.com/garrygerber/garrygerber.github.io/commit/40681f61b6ed27c478754c5aa785bc3e4a25407e))
+
+
+
 ## [0.5.1](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.0...simple_web-v0.5.1) (2024-08-18)
 
 
@@ -52,15 +61,6 @@
 ### Features
 
 * :sparkles: add keda scaler object ([ae6e4bc](https://github.com/garrygerber/garrygerber.github.io/commit/ae6e4bcbe66f34018ff102dcdcd9733efbe3b803))
-
-
-
-## [0.2.1](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.2.0...simple_web-v0.2.1) (2024-08-17)
-
-
-### Bug Fixes
-
-* :bug: fix get changed charts in dispatch call ([3ac23fd](https://github.com/garrygerber/garrygerber.github.io/commit/3ac23fd79da78532a273b526ea2888ca9dd6d4f1))
 
 
 
