@@ -17,4 +17,5 @@ spec:
   selector:
     matchLabels:
       {{- include "simple-web.selectorLabels" . | nindent 6 }}
+      {{- include "simple-web.versionLabel" . | nindent 6 }}
 {{- end }}

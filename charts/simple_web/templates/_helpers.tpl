@@ -66,6 +66,13 @@ Selector labels
 {{- define "simple-web.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "simple-web.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+
+{{/*
+Version label
+*/}}
+{{- define "simple-web.versionLabel" -}}
+helm.sh/chart: {{ include "simple-web.chart" . }}
 app.kubernetes.io/tag: {{ default .Chart.AppVersion .Values.image.tag }}
 {{- end }}
 
