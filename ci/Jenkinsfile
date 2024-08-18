@@ -34,11 +34,11 @@ pipeline {
         steps {
             script {
                 def chartNames = sh(script: """
-                    ls -d charts/* | xargs -n 1 basename | sed 's/_/-/g' | sort | tr '\n' ','
+                    ls -d charts/* | xargs -n 1 basename | sed 's/_/-/g' | sort
                 """, returnStdout: true).trim()
                 
                 if (chartNames) {
-                    def chartList = chartNames.split(',')
+                    def chartList = chartNames.split('\n').toList()
                     env.SELECTED_CHART = input message: "Select the chart to ${params.ACTION}:", 
                                          parameters: [choice(name: 'CHART', 
                                                              choices: chartList, 
