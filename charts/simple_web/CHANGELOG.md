@@ -1,3 +1,12 @@
+# [0.8.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.7.0...simple_web-v0.8.0) (2024-08-18)
+
+
+### Features
+
+* :sparkles: add helm test ([3b4b45f](https://github.com/garrygerber/garrygerber.github.io/commit/3b4b45fafc3b106772c2f43159b017259b9b59d6))
+
+
+
 # [0.7.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.6.0...simple_web-v0.7.0) (2024-08-18)
 
 
@@ -38,16 +47,6 @@
 ### Bug Fixes
 
 * :bug: fix scale object ([40681f6](https://github.com/garrygerber/garrygerber.github.io/commit/40681f61b6ed27c478754c5aa785bc3e4a25407e))
-
-
-
-## [0.5.1](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.0...simple_web-v0.5.1) (2024-08-18)
-
-
-### Bug Fixes
-
-* :bug: fix custom values ([9f99e07](https://github.com/garrygerber/garrygerber.github.io/commit/9f99e074cd34a505ed140270aaaf41cf0625534c))
-* :bug: fix network policy template ([d35a756](https://github.com/garrygerber/garrygerber.github.io/commit/d35a756190e3e5a586526bc6c828286dd11ecf59))
 
 
 
