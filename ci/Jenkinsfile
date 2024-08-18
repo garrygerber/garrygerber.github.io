@@ -16,6 +16,8 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
+                checkout scm
+
                 script {
                     sh """
                         az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER_NAME} --file kubeconfig
@@ -26,11 +28,11 @@ pipeline {
             }
         }
  
-        stage('Select Chart to ' + params.ACTION) {
+        stage('Select Chart') {
             steps {
                 script {
                     def chartNames = sh(script: "ls -d charts/* | xargs -n 1 basename | tr '\n' ','", returnStdout: true).trim()
-                    env.SELECTED_CHART = input message: 'Select the chart to ' + params.ACTION + ':', parameters: [choice(name: 'CHART', choices: chartNames, description: 'Available charts')]
+                    env.SELECTED_CHART = input message: "Select the chart to ${params.ACTION}:", parameters: [choice(name: 'CHART', choices: chartNames, description: 'Available charts')]
                 }
             }
         }
