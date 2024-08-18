@@ -114,11 +114,16 @@ pipeline {
                         --namespace ${NAMESPACE} \
                         --version ${env.RELEASE_TAG} \
                         --wait \
+                        --timeout 5m \
                         --kubeconfig ${KUBECONFIG} \
                         ${env.CUSTOM_VALUES}
                     """
                     
                     sh deployCommand
+                    
+                    timeout(time: 2, unit: 'MINUTES') {
+                        sh "kubectl wait --for=condition=Ready pods -l app.kubernetes.io/instance=${env.SELECTED_CHART} -n ${NAMESPACE} --timeout=120s"
+                    }
                 }
             }
         }
