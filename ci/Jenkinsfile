@@ -136,6 +136,8 @@ pipeline {
                     
                     if (env.CUSTOM_VALUES_FILE) {
                         deployCommand += " -f ${env.CUSTOM_VALUES_FILE}"
+                        echo "Custom values applied:"
+                        sh "cat ${env.CUSTOM_VALUES_FILE}"
                     }
                     
                     sh deployCommand
