@@ -7,7 +7,8 @@ metadata:
     {{- include "simple-web.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
-    deploymentName: {{ include "simple-web.versionedName" . }}
+    name: {{ include "simple-web.versionedName" . }}
+    kind: Deployment
   minReplicaCount: {{ .Values.kedaScaler.minReplicaCount }}
   maxReplicaCount: {{ .Values.kedaScaler.maxReplicaCount }}
 {{- with (index .Values "kedaScaler" "triggers") }}
