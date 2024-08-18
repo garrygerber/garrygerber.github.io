@@ -1,3 +1,12 @@
+# [0.6.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.3...simple_web-v0.6.0) (2024-08-18)
+
+
+### Features
+
+* :zap: add timeouts ([eadac54](https://github.com/garrygerber/garrygerber.github.io/commit/eadac54370520d0811c2800555b6e0f9f50a1ec2))
+
+
+
 ## [0.5.3](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.2...simple_web-v0.5.3) (2024-08-18)
 
 
@@ -48,15 +57,6 @@
 
 * :sparkles: add support for setting custom values ([9d3be04](https://github.com/garrygerber/garrygerber.github.io/commit/9d3be04546dfeb1d1abc77a359317a1d0d4412ff))
 * :sparkles: configure helm repo ([af7f6ef](https://github.com/garrygerber/garrygerber.github.io/commit/af7f6efd364ea4a3a0829b19bdf7a3f8e7965c8d))
-
-
-
-# [0.4.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.3.0...simple_web-v0.4.0) (2024-08-17)
-
-
-### Features
-
-* :sparkles: add network policy object ([80207a8](https://github.com/garrygerber/garrygerber.github.io/commit/80207a8511b173145957e8440e4881d03cfb8089))
 
 
 
