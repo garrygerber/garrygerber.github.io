@@ -11,13 +11,13 @@ fullnameOverride: ""
 
 service:
   enabled: true
+  versioned: true
   ports:
     - port: 80
       targetPort: http
       protocol: TCP
       name: http
   type: ClusterIP
-  createVersionedService: true
 
 container:
   resources:
