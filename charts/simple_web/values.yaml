@@ -72,7 +72,7 @@ ingress:
                   number: 80
 
 networkPolicy:
-  enabled: true
+  enabled: false
   policyTypes:
     - Ingress
     - Egress
@@ -129,7 +129,7 @@ readinessProbe:
   periodSeconds: 10
 
 kedaScaler:
-  enabled: false
+  enabled: true
   minReplicaCount: 1
   maxReplicaCount: 10
   triggers:
@@ -149,5 +149,5 @@ kedaScaler:
         desiredReplicas: "3"
 
 podDisruptionBudget:
-  enabled: true
+  enabled: false
   maxUnavailable: 1
