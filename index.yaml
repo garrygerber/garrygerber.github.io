@@ -3,6 +3,25 @@ entries:
   simple-web:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: '2024-08-18T21:54:16Z'
+    description: A Helm chart for deploying a web application
+    digest: ed54a611996f9eb565591c8c40ce64a50738987bb1b3b7478c5cca791a179f6e
+    home: https://github.com/garrygerber/simple-web
+    keywords:
+    - web
+    - simple
+    maintainers:
+    - email: garry@garrygerber.com
+      name: Garry Gerber
+    name: simple-web
+    sources:
+    - https://github.com/garrygerber/simple-web
+    type: application
+    urls:
+    - https://github.com/garrygerber/garrygerber.github.io/releases/download/simple-web-0.5.3/simple-web-0.5.3.tgz
+    version: 0.5.3
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: '2024-08-18T21:22:24Z'
     description: A Helm chart for deploying a web application
     digest: b7515f10695c060e161cf2e59a73d8559e9432eaafcd85f4c7b06a6daba09de0
@@ -191,4 +210,4 @@ entries:
     urls:
     - https://github.com/garrygerber/garrygerber.github.io/releases/download/simple-web-0.1.0/simple-web-0.1.0.tgz
     version: 0.1.0
-generated: '2024-08-18T21:23:58.913445Z'
+generated: '2024-08-18T21:55:21.014966Z'
