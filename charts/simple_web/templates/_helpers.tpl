@@ -35,8 +35,11 @@ Create a suffix with chart version and image tag
 Create a name with version suffix
 */}}
 {{- define "simple-web.versionedName" -}}
-{{- printf "%s-%s" (include "simple-web.fullname" .) (include "simple-web.versionSuffix" .) | trunc 63 | trimSuffix "-" }}
+{{- $name := include "simple-web.fullname" . -}}
+{{- $version := include "simple-web.versionSuffix" . | replace "." "-" -}}
+{{- printf "%s-%s" $name $version | lower | trunc 63 | trimSuffix "-" -}}
 {{- end }}
+
 
 {{/*
 Create chart name and version as used by the chart label.
