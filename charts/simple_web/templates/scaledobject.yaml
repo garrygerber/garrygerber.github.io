@@ -13,6 +13,12 @@ spec:
   maxReplicaCount: {{ .Values.kedaScaler.maxReplicaCount }}
 {{- with (index .Values "kedaScaler" "triggers") }}
   triggers:
-  {{- toYaml . | nindent 4 }}
+  {{- range . }}
+  - type: {{ .type }}
+    metadata:
+      {{- range $key, $value := .metadata }}
+      {{ $key }}: {{ $value | quote }}
+      {{- end }}
+  {{- end }}
 {{- end }}
 {{- end }}
