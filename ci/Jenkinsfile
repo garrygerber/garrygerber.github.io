@@ -138,15 +138,76 @@ pipeline {
             }
             steps {
                 script {
-                    def existingReleases = sh(script: """
-                        helm list -n ${NAMESPACE} -o json | grep -oP '"name":"\\K[^"]*' | tr '\n' ','
-                    """, returnStdout: true).trim()
-                    env.RELEASE_NAME = input message: 'Select the release to destroy:', parameters: [choice(name: 'RELEASE', choices: existingReleases, description: 'Existing releases')]
-                    sh """
-                        helm uninstall ${env.RELEASE_NAME} \
-                        --namespace ${NAMESPACE} \
-                        --kubeconfig ${KUBECONFIG}
-                    """
+                    try {
+                        def existingReleases = sh(
+                            script: "helm list -n ${NAMESPACE} --kubeconfig ${KUBECONFIG} -o json",
+                            returnStdout: true
+                        ).trim()
+                        
+                        def releases = readJSON text: existingReleases
+                        
+                        if (releases.size() > 0) {
+                            def releaseOptions = releases.collect { 
+                                "${it.name} (Chart: ${it.chart}, Version: ${it.app_version})"
+                            }
+                            
+                            def selection = input(
+                                message: 'Select the release to destroy:',
+                                parameters: [
+                                    choice(
+                                        name: 'RELEASE', 
+                                        choices: releaseOptions, 
+                                        description: 'Existing releases (Name - Chart - Version)'
+                                    )
+                                ]
+                            )
+                            
+                            env.RELEASE_NAME = selection.split(' ')[0]
+                            
+                            // Confirmation step
+                            input(
+                                message: "Are you sure you want to destroy release '${env.RELEASE_NAME}'?",
+                                ok: "Yes, destroy it"
+                            )
+                            
+                            echo "Destroying Helm release: ${env.RELEASE_NAME}"
+                            
+                            def destroyCommand = """
+                                    helm uninstall ${env.RELEASE_NAME} \
+                                    --namespace ${NAMESPACE} \
+                                    --wait \
+                                    --timeout 5m \
+                                    --kubeconfig ${KUBECONFIG}
+                                """
+                            sh destroyCommand
+                                                        
+                            // Check if any resources are left
+                            def leftoverResources = sh(
+                                script: """
+                                    kubectl get all -n ${NAMESPACE} -l app.kubernetes.io/instance=${env.RELEASE_NAME} -o name
+                                """,
+                                returnStdout: true
+                            ).trim()
+                            
+                            if (leftoverResources) {
+                                echo "Warning: Some resources were not properly removed:"
+                                echo leftoverResources
+                                input(
+                                    message: "Do you want to force delete these resources?",
+                                    ok: "Yes, force delete"
+                                )
+                                sh """
+                                    kubectl delete all -n ${NAMESPACE} -l app.kubernetes.io/instance=${env.RELEASE_NAME} --force --grace-period=0
+                                """
+                            }
+                            
+                            echo "Release '${env.RELEASE_NAME}' has been successfully destroyed."
+                        } else {
+                            echo "No existing releases found in namespace ${NAMESPACE}"
+                        }
+                    } catch (Exception e) {
+                        error "Failed to destroy release: ${e.getMessage()}"
+                    }
                 }
             }
         }
