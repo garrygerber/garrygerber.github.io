@@ -79,6 +79,9 @@ networkPolicy:
   ingress:
     - from:
         - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 80
   egress:
     - to:
         - ipBlock:

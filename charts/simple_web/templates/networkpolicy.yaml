@@ -15,11 +15,7 @@ spec:
   {{- end }}
   {{- with (index .Values "networkPolicy" "ingress") }}
   ingress:
-    - from:
-        {{- toYaml . | nindent 8 }}
-      ports:
-        - protocol: TCP
-          port: {{ $.Values.service.port }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- with (index .Values "networkPolicy" "egress") }}
   egress:
