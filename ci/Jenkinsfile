@@ -89,15 +89,14 @@ pipeline {
             script {
                 def customValues = input message: 'Enter custom values for the Helm chart (optional)', 
                     parameters: [
-                        text(name: 'CUSTOM_VALUES', 
-                            description: '''Enter custom values in key=value format, separated by commas. Keys can be quoted if they contain special characters. Leave empty for default values.
-                                            Example:
-                                            replicaCount=2, image.tag=v1.0.0, ingress.enabled=true, resources.limits.cpu=100m, resources.limits.memory=128Mi, "my.special.key"="special value"
-                                            ''', 
-                            defaultValue: '')
+                        string(name: 'CUSTOM_VALUES', 
+                                description: '''Enter custom values in key=value format, separated by commas. Keys can be quoted if they contain special characters. Leave empty for default values. \
+                                Example: \
+                                replicaCount=2, image.tag=v1.0.0, ingress.enabled=true, resources.limits.cpu=100m, resources.limits.memory=128Mi, "my.special.key"="special value"''', 
+                                defaultValue: '')
                     ]
                 
-                if (customValues.CUSTOM_VALUES.trim()) {
+                if (customValues.trim()) {
                     def parseKeyValue = { pair ->
                         def parts = pair.split('=', 2)
                         def key = parts[0].trim().replaceAll('^"|"$', '') // Remove surrounding quotes if present
@@ -105,7 +104,7 @@ pipeline {
                         [key, value]
                     }
                     
-                    def yamlContent = customValues.CUSTOM_VALUES.split(',').collect { pair ->
+                    def yamlContent = customValues.split(',').collect { pair ->
                         def (key, value) = parseKeyValue(pair)
                         def keys = key.split('\\.')
                         def yamlLine = keys.inject('') { result, k -> result + '  ' * k.size() + k + ':' }
