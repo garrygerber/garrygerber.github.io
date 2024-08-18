@@ -1,0 +1,132 @@
+pipeline {
+    agent any
+    
+    environment {
+        GITHUB_REPO = 'garrygerber/simple-web-app'
+        NAMESPACE = 'garry'
+        GITHUB_CRED_ID = 'garry-github-credentials'
+        AKS_CLUSTER_NAME = 'devops-interview-aks'
+        RESOURCE_GROUP = 'devops-interview-rg'
+    }
+    
+    parameters {
+        choice(name: 'ACTION', choices: ['Deploy', 'Destroy'], description: 'Select whether to deploy or destroy a Helm release')
+    }
+    
+    stages {
+        stage('Setup') {
+            steps {
+                script {
+                        sh """
+                            az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER_NAME} --file kubeconfig
+                            export KUBECONFIG=./kubeconfig
+                            kubelogin convert-kubeconfig -l msi
+                        """
+                    }
+                
+            }
+        }
+ 
+        
+        stage('Select Chart to ' + params.ACTION) {
+            steps {
+                script {
+                    def chartNames = sh(script: "ls -d charts/* | xargs -n 1 basename | tr '\n' ','", returnStdout: true).trim()
+                    env.SELECTED_CHART = input message: 'Select the chart to ' + params.ACTION + ':', parameters: [choice(name: 'CHART', choices: chartNames, description: 'Available charts')]
+                    } 
+                }
+            }
+        }
+        
+
+        stage('Select Release') {
+            when {
+                expression { params.ACTION == 'Deploy' }
+            }
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: GITHUB_CRED_ID, usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+                        def allVersions = sh(script: """
+                            curl -s -u ${GITHUB_USER}:${GITHUB_TOKEN} https://api.github.com/repos/${GITHUB_REPO}/releases | jq -r '.[].tag_name'
+                        """, returnStdout: true).trim()
+                        
+                        def filteredVersions = allVersions.split('\n').findAll { it.startsWith("${env.SELECTED_CHART}-") }
+                        
+                        if (filteredVersions.size() > 0) {
+                            echo "Available versions for ${env.SELECTED_CHART}:"
+                            filteredVersions.each { echo it }
+                            
+                            def selectedVersion = input message: 'Select the version to deploy:', parameters: [choice(name: 'VERSION', choices: filteredVersions, description: 'Available versions')]
+                            env.RELEASE_TAG = selectedVersion.substring(env.SELECTED_CHART.length() + 1)  // Remove chart name prefix
+                        } else {
+                            error "No versions found for ${env.SELECTED_CHART}. Make sure your releases are tagged correctly."
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Helm Test') {
+            when {
+                expression { params.ACTION == 'Deploy' }
+            }
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh """
+                        helm upgrade --install ${env.RELEASE_NAME} ${env.SELECTED_CHART} \
+                        --namespace ${NAMESPACE} \
+                        --version ${env.RELEASE_TAG} \
+                        --wait \
+                        --kubeconfig ${KUBECONFIG}
+                    """
+                }
+            }
+        }
+
+        stage('Deploy Helm Chart') {
+            when {
+                expression { params.ACTION == 'Deploy' }
+            }
+            steps {
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh """
+                        helm upgrade --install ${env.RELEASE_NAME} ${env.SELECTED_CHART} \
+                        --namespace ${NAMESPACE} \
+                        --version ${env.RELEASE_TAG} \
+                        --wait \
+                        --kubeconfig ${KUBECONFIG}
+                    """
+                }
+            }
+        }
+        
+        stage('Destroy Helm Release') {
+            when {
+                expression { params.ACTION == 'Destroy' }
+            }
+            steps {
+                def existingReleases = sh(script: "helm list -n ${NAMESPACE} -o json | jq -r '.[].name' | tr '\n' ','", returnStdout: true).trim()
+                env.RELEASE_NAME = input message: 'Select the release to destroy:', parameters: [choice(name: 'RELEASE', choices: existingReleases, description: 'Existing releases')]
+                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh """
+                        helm uninstall ${env.RELEASE_NAME} \
+                        --namespace ${NAMESPACE} \
+                        --kubeconfig ${KUBECONFIG}
+                    """
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            sh 'rm -f kubeconfig'
+        }
+        success {
+            echo "${params.ACTION} of ${params.ACTION == 'Deploy' ? env.SELECTED_CHART : env.RELEASE_NAME} ${params.ACTION == 'Deploy' ? "version ${env.RELEASE_TAG}" : ''} successful!"
+        }
+        failure {
+            echo "${params.ACTION} failed. Please check the logs for more information."
+        }
+    }
+}
