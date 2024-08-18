@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     def chartNames = sh(script: """
-                        helm search repo ${HELM_REPO_NAME}/ | grep ${HELM_REPO_NAME}/ | awk '{print $1}' | sed "s|${HELM_REPO_NAME}/||g" | sort -u
+                        helm search repo ${HELM_REPO_NAME}/ | grep ${HELM_REPO_NAME}/ | awk '{print \$1}' | sed 's|${HELM_REPO_NAME}/||g' | sort -u
                     """, returnStdout: true).trim()
                     
                     if (chartNames) {
