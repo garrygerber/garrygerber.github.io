@@ -93,7 +93,7 @@ pipeline {
             }
             steps {
                 sh """
-                    helm upgrade --install ${env.RELEASE_NAME} ${env.SELECTED_CHART} \
+                    helm upgrade --install ${env.SELECTED_CHART-${env.RELEASE_TAG}} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
                     --namespace ${NAMESPACE} \
                     --version ${env.RELEASE_TAG} \
                     --wait \
@@ -108,7 +108,7 @@ pipeline {
             }
             steps {
                 sh """
-                    helm upgrade --install ${env.RELEASE_NAME} ${env.SELECTED_CHART} \
+                    helm upgrade --install ${env.SELECTED_CHART-${env.RELEASE_TAG}} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
                     --namespace ${NAMESPACE} \
                     --version ${env.RELEASE_TAG} \
                     --wait \
