@@ -1,3 +1,13 @@
+## [0.5.3](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.2...simple_web-v0.5.3) (2024-08-18)
+
+
+### Bug Fixes
+
+* :bug: fix versionedName to be DNS compatible ([8d8aaf8](https://github.com/garrygerber/garrygerber.github.io/commit/8d8aaf8e834ddb5a14e163aeee2263f7d75a3241))
+* :bug: improve object scale triggers ([e91af9a](https://github.com/garrygerber/garrygerber.github.io/commit/e91af9aabdd92088d9aaadfd04f3e82988f43772))
+
+
+
 ## [0.5.2](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.1...simple_web-v0.5.2) (2024-08-18)
 
 
@@ -47,20 +57,6 @@
 ### Features
 
 * :sparkles: add network policy object ([80207a8](https://github.com/garrygerber/garrygerber.github.io/commit/80207a8511b173145957e8440e4881d03cfb8089))
-
-
-
-# [0.3.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.2.1...simple_web-v0.3.0) (2024-08-17)
-
-
-### Bug Fixes
-
-* :green_heart: add back the commit in changelog ([24f39e3](https://github.com/garrygerber/garrygerber.github.io/commit/24f39e3144f3158c368e5568fa09f18e584ab319))
-
-
-### Features
-
-* :sparkles: add keda scaler object ([ae6e4bc](https://github.com/garrygerber/garrygerber.github.io/commit/ae6e4bcbe66f34018ff102dcdcd9733efbe3b803))
 
 
 
