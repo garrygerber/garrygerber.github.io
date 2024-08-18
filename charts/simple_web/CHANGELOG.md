@@ -1,3 +1,13 @@
+## [0.8.1](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.0...simple_web-v0.8.1) (2024-08-18)
+
+
+### Bug Fixes
+
+* :bug: fix overlapping releases ([b124601](https://github.com/garrygerber/garrygerber.github.io/commit/b1246013182e7ad3eca53a6034652ebd6f50d6f0))
+* :bug: set namespace in test pod ([1e58a1c](https://github.com/garrygerber/garrygerber.github.io/commit/1e58a1cf8707d966db93a1b4e5e0e7cab19c00ef))
+
+
+
 # [0.8.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.7.0...simple_web-v0.8.0) (2024-08-18)
 
 
@@ -38,15 +48,6 @@
 
 * :bug: fix versionedName to be DNS compatible ([8d8aaf8](https://github.com/garrygerber/garrygerber.github.io/commit/8d8aaf8e834ddb5a14e163aeee2263f7d75a3241))
 * :bug: improve object scale triggers ([e91af9a](https://github.com/garrygerber/garrygerber.github.io/commit/e91af9aabdd92088d9aaadfd04f3e82988f43772))
-
-
-
-## [0.5.2](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.1...simple_web-v0.5.2) (2024-08-18)
-
-
-### Bug Fixes
-
-* :bug: fix scale object ([40681f6](https://github.com/garrygerber/garrygerber.github.io/commit/40681f61b6ed27c478754c5aa785bc3e4a25407e))
 
 
 
