@@ -117,7 +117,6 @@ pipeline {
     post {
         always {
             sh 'rm -f ${KUBECONFIG}'
-            sh 'az account clear'
         }
         success {
             echo "${params.ACTION} of ${params.ACTION == 'Deploy' ? env.SELECTED_CHART : env.RELEASE_NAME} ${params.ACTION == 'Deploy' ? "version ${env.RELEASE_TAG}" : ''} successful!"
