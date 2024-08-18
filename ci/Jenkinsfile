@@ -7,6 +7,8 @@ pipeline {
         GITHUB_CRED_ID = 'GITHUB_CRED_ID'
         AKS_CLUSTER_NAME = 'devops-interview-aks'
         RESOURCE_GROUP = 'devops-interview-rg'
+        KUBECONFIG = './kubeconfig'
+
     }
     
     parameters {
@@ -20,8 +22,8 @@ pipeline {
 
                 script {
                     sh """
-                        az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER_NAME} --file kubeconfig
-                        export KUBECONFIG=./kubeconfig
+                        az login -i
+                        az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER_NAME} --file ${KUBECONFIG}
                         kubelogin convert-kubeconfig -l msi
                     """
                 }
@@ -69,15 +71,13 @@ pipeline {
                 expression { params.ACTION == 'Deploy' }
             }
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh """
-                        helm upgrade --install ${env.RELEASE_NAME} ${env.SELECTED_CHART} \
-                        --namespace ${NAMESPACE} \
-                        --version ${env.RELEASE_TAG} \
-                        --wait \
-                        --kubeconfig ${KUBECONFIG}
-                    """
-                }
+                sh """
+                    helm upgrade --install ${env.RELEASE_NAME} ${env.SELECTED_CHART} \
+                    --namespace ${NAMESPACE} \
+                    --version ${env.RELEASE_TAG} \
+                    --wait \
+                    --kubeconfig ${KUBECONFIG}
+                """
             }
         }
 
@@ -86,15 +86,13 @@ pipeline {
                 expression { params.ACTION == 'Deploy' }
             }
             steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh """
-                        helm upgrade --install ${env.RELEASE_NAME} ${env.SELECTED_CHART} \
-                        --namespace ${NAMESPACE} \
-                        --version ${env.RELEASE_TAG} \
-                        --wait \
-                        --kubeconfig ${KUBECONFIG}
-                    """
-                }
+                sh """
+                    helm upgrade --install ${env.RELEASE_NAME} ${env.SELECTED_CHART} \
+                    --namespace ${NAMESPACE} \
+                    --version ${env.RELEASE_TAG} \
+                    --wait \
+                    --kubeconfig ${KUBECONFIG}
+                """
             }
         }
         
@@ -106,13 +104,11 @@ pipeline {
                 script {
                     def existingReleases = sh(script: "helm list -n ${NAMESPACE} -o json | jq -r '.[].name' | tr '\n' ','", returnStdout: true).trim()
                     env.RELEASE_NAME = input message: 'Select the release to destroy:', parameters: [choice(name: 'RELEASE', choices: existingReleases, description: 'Existing releases')]
-                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                        sh """
-                            helm uninstall ${env.RELEASE_NAME} \
-                            --namespace ${NAMESPACE} \
-                            --kubeconfig ${KUBECONFIG}
-                        """
-                    }
+                    sh """
+                        helm uninstall ${env.RELEASE_NAME} \
+                        --namespace ${NAMESPACE} \
+                        --kubeconfig ${KUBECONFIG}
+                    """
                 }
             }
         }
@@ -120,7 +116,8 @@ pipeline {
     
     post {
         always {
-            sh 'rm -f kubeconfig'
+            sh 'rm -f ${KUBECONFIG}'
+            sh 'az account clear'
         }
         success {
             echo "${params.ACTION} of ${params.ACTION == 'Deploy' ? env.SELECTED_CHART : env.RELEASE_NAME} ${params.ACTION == 'Deploy' ? "version ${env.RELEASE_TAG}" : ''} successful!"
