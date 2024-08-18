@@ -8,7 +8,8 @@ pipeline {
         AKS_CLUSTER_NAME = 'devops-interview-aks'
         RESOURCE_GROUP = 'devops-interview-rg'
         KUBECONFIG = './kubeconfig'
-
+        HELM_REPO_NAME = 'simple-web'
+        HELM_REPO_URL = 'https://garrygerber.github.io'
     }
     
     parameters {
@@ -26,6 +27,15 @@ pipeline {
                         az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER_NAME} --file ${KUBECONFIG}
                         kubelogin convert-kubeconfig -l msi
                     """
+                    
+                    // Check if the Helm repo exists, add if it doesn't
+                    def repoExists = sh(script: "helm repo list | grep -q ${HELM_REPO_NAME}", returnStatus: true)
+                    if (repoExists != 0) {
+                        echo "Helm Repo is Missing, Adding repository ${HELM_REPO_NAME}"
+                        sh "helm repo add ${HELM_REPO_NAME} ${HELM_REPO_URL}"
+                    
+                    // Update Helm repos
+                    sh "helm repo update"
                 }
             }
         }
