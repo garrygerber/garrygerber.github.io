@@ -39,49 +39,46 @@ pipeline {
                 }
             }
         }
- 
-    stage('Select Chart') {
-        steps {
-            script {
-                def chartNames = sh(script: """
-                    ls -d charts/* | xargs -n 1 basename | sed 's/_/-/g' | sort
-                """, returnStdout: true).trim()
-                
-                if (chartNames) {
-                    def chartList = chartNames.split('\n').toList()
-                    env.SELECTED_CHART = input message: "Select the chart to ${params.ACTION}:", 
-                                         parameters: [choice(name: 'CHART', 
-                                                             choices: chartList, 
-                                                             description: 'Available charts')]
-                } else {
-                    error "No charts found in the charts directory."
+
+        stage('Select Chart') {
+            steps {
+                script {
+                    def chartNames = sh(script: """
+                        helm search repo ${HELM_REPO_NAME}/ --output json | jq -r '.[].name' | sed 's|${HELM_REPO_NAME}/||g' | sort -u
+                        ls -d charts/* | xargs -n 1 basename | sed 's/_/-/g' | sort
+                    """, returnStdout: true).trim()
+                    
+                    if (chartNames) {
+                        def chartList = chartNames.split('\n').toList()
+                        env.SELECTED_CHART = input message: "Select the chart to ${params.ACTION}:", 
+                                             parameters: [choice(name: 'CHART', 
+                                                                 choices: chartList, 
+                                                                 description: 'Available charts')]
+                    } else {
+                        error "No charts found in the charts directory."
+                    }
                 }
             }
         }
-    }
-
+        
         stage('Select Release') {
             when {
                 expression { params.ACTION == 'Deploy' }
             }
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: GITHUB_CRED_ID, usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
-                        def allVersions = sh(script: """
-                            curl -s -u ${GITHUB_USER}:${GITHUB_TOKEN} https://api.github.com/repos/${GITHUB_REPO}/releases | grep -oP '"tag_name": "\\K[^"]*'
-                        """, returnStdout: true).trim()
-                        
-                        def filteredVersions = allVersions.split('\n').findAll { it.startsWith("${env.SELECTED_CHART}-") }
-                        
-                        if (filteredVersions.size() > 0) {
-                            echo "Available versions for ${env.SELECTED_CHART}:"
-                            filteredVersions.each { echo it }
-                            
-                            def selectedVersion = input message: 'Select the version to deploy:', parameters: [choice(name: 'VERSION', choices: filteredVersions, description: 'Available versions')]
-                            env.RELEASE_TAG = selectedVersion.substring(env.SELECTED_CHART.length() + 1)  // Remove chart name prefix
-                        } else {
-                            error "No versions found for ${env.SELECTED_CHART}. Make sure your releases are tagged correctly."
-                        }
+                    def versions = sh(script: """
+                        helm search repo ${HELM_REPO_NAME}/${env.SELECTED_CHART} --versions | grep ${HELM_REPO_NAME}/${env.SELECTED_CHART} | awk '{print \$2}' | sort -rV
+                    """, returnStdout: true).trim()
+                    
+                    if (versions) {
+                        def versionList = versions.split('\n').toList()
+                        env.RELEASE_TAG = input message: 'Select the version to deploy:', 
+                                          parameters: [choice(name: 'VERSION', 
+                                                              choices: versionList, 
+                                                              description: 'Available versions')]
+                    } else {
+                        error "No versions found for ${env.SELECTED_CHART}."
                     }
                 }
             }
