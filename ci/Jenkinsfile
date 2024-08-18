@@ -120,14 +120,14 @@ pipeline {
             steps {
                 script {
                     def deployCommand = """
-                        helm upgrade --install ${env.SELECTED_CHART} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
+                        helm upgrade --install ${env.SELECTED_CHART}-${env.RELEASE_TAG} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
                         --namespace ${NAMESPACE} \
                         --version ${env.RELEASE_TAG} \
                         --wait \
                         --timeout 5m \
                         --kubeconfig ${KUBECONFIG} \
                         ${env.CUSTOM_VALUES}
-                        helm test ${env.SELECTED_CHART}
+                        helm test ${env.SELECTED_CHART}-${env.RELEASE_TAG}
                     """
                     
                     sh deployCommand
