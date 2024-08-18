@@ -2,9 +2,9 @@ pipeline {
     agent any
     
     environment {
-        GITHUB_REPO = 'garrygerber/simple-web-app'
+        GITHUB_REPO = 'garrygerber/garrygerber.github.io'
         NAMESPACE = 'garry'
-        GITHUB_CRED_ID = 'garry-github-credentials'
+        GITHUB_CRED_ID = 'GITHUB_CRED_ID'
         AKS_CLUSTER_NAME = 'devops-interview-aks'
         RESOURCE_GROUP = 'devops-interview-rg'
     }
