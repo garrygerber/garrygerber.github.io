@@ -7,9 +7,9 @@ pipeline {
         GITHUB_CRED_ID = 'GITHUB_CRED_ID'
         AKS_CLUSTER_NAME = 'devops-interview-aks'
         RESOURCE_GROUP = 'devops-interview-rg'
-        KUBECONFIG = './kubeconfig'
         HELM_REPO_NAME = 'simple-web'
         HELM_REPO_URL = 'https://garrygerber.github.io'
+        KUBECONFIG = './kubeconfig'
     }
     
     parameters {
@@ -19,8 +19,6 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                checkout scm
-
                 script {
                     sh """
                         az login -i
@@ -89,13 +87,15 @@ pipeline {
                 expression { params.ACTION == 'Deploy' }
             }
             steps {
-                sh """
-                    helm upgrade --install ${env.SELECTED_CHART-${env.RELEASE_TAG}} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
-                    --namespace ${NAMESPACE} \
-                    --version ${env.RELEASE_TAG} \
-                    --wait \
-                    --kubeconfig ${KUBECONFIG}
-                """
+                script {
+                    sh """
+                        helm upgrade --install ${env.SELECTED_CHART} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
+                        --namespace ${NAMESPACE} \
+                        --version ${env.RELEASE_TAG} \
+                        --wait \
+                        --kubeconfig ${KUBECONFIG}
+                    """
+                }
             }
         }
         
