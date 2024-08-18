@@ -127,6 +127,7 @@ pipeline {
                         --timeout 5m \
                         --kubeconfig ${KUBECONFIG} \
                         ${env.CUSTOM_VALUES}
+                        helm test ${env.SELECTED_CHART}
                     """
                     
                     sh deployCommand
