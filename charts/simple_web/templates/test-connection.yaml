@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "simple-web.versionedName" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "simple-web.versionedName" . }}:{{ (first .Values.service.ports).port }}']
   restartPolicy: Never
