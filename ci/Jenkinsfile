@@ -17,27 +17,23 @@ pipeline {
         stage('Setup') {
             steps {
                 script {
-                        sh """
-                            az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER_NAME} --file kubeconfig
-                            export KUBECONFIG=./kubeconfig
-                            kubelogin convert-kubeconfig -l msi
-                        """
-                    }
-                
+                    sh """
+                        az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER_NAME} --file kubeconfig
+                        export KUBECONFIG=./kubeconfig
+                        kubelogin convert-kubeconfig -l msi
+                    """
+                }
             }
         }
  
-        
         stage('Select Chart to ' + params.ACTION) {
             steps {
                 script {
                     def chartNames = sh(script: "ls -d charts/* | xargs -n 1 basename | tr '\n' ','", returnStdout: true).trim()
                     env.SELECTED_CHART = input message: 'Select the chart to ' + params.ACTION + ':', parameters: [choice(name: 'CHART', choices: chartNames, description: 'Available charts')]
-                    } 
                 }
             }
         }
-        
 
         stage('Select Release') {
             when {
@@ -105,14 +101,16 @@ pipeline {
                 expression { params.ACTION == 'Destroy' }
             }
             steps {
-                def existingReleases = sh(script: "helm list -n ${NAMESPACE} -o json | jq -r '.[].name' | tr '\n' ','", returnStdout: true).trim()
-                env.RELEASE_NAME = input message: 'Select the release to destroy:', parameters: [choice(name: 'RELEASE', choices: existingReleases, description: 'Existing releases')]
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh """
-                        helm uninstall ${env.RELEASE_NAME} \
-                        --namespace ${NAMESPACE} \
-                        --kubeconfig ${KUBECONFIG}
-                    """
+                script {
+                    def existingReleases = sh(script: "helm list -n ${NAMESPACE} -o json | jq -r '.[].name' | tr '\n' ','", returnStdout: true).trim()
+                    env.RELEASE_NAME = input message: 'Select the release to destroy:', parameters: [choice(name: 'RELEASE', choices: existingReleases, description: 'Existing releases')]
+                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                        sh """
+                            helm uninstall ${env.RELEASE_NAME} \
+                            --namespace ${NAMESPACE} \
+                            --kubeconfig ${KUBECONFIG}
+                        """
+                    }
                 }
             }
         }
