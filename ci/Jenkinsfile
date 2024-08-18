@@ -42,8 +42,7 @@ pipeline {
             steps {
                 script {
                     def chartNames = sh(script: """
-                        helm search repo ${HELM_REPO_NAME}/ --output json | jq -r '.[].name' | sed 's|${HELM_REPO_NAME}/||g' | sort -u
-                        ls -d charts/* | xargs -n 1 basename | sed 's/_/-/g' | sort
+                        helm search repo ${HELM_REPO_NAME}/ | grep ${HELM_REPO_NAME}/ | awk '{print $1}' | sed "s|${HELM_REPO_NAME}/||g" | sort -u
                     """, returnStdout: true).trim()
                     
                     if (chartNames) {
