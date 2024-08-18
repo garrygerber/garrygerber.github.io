@@ -87,21 +87,6 @@ pipeline {
             }
         }
 
-        stage('Helm Test') {
-            when {
-                expression { params.ACTION == 'Deploy' }
-            }
-            steps {
-                sh """
-                    helm upgrade --install ${env.SELECTED_CHART-${env.RELEASE_TAG}} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
-                    --namespace ${NAMESPACE} \
-                    --version ${env.RELEASE_TAG} \
-                    --wait \
-                    --kubeconfig ${KUBECONFIG}
-                """
-            }
-        }
-
         stage('Deploy Helm Chart') {
             when {
                 expression { params.ACTION == 'Deploy' }
