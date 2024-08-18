@@ -81,19 +81,65 @@ pipeline {
             }
         }
 
+    stage('Custom Values') {
+        when {
+            expression { params.ACTION == 'Deploy' }
+        }
+        steps {
+            script {
+                def customValues = input message: 'Enter custom values for the Helm chart (optional)', 
+                    parameters: [
+                        text(name: 'CUSTOM_VALUES', 
+                            description: '''Enter custom values in key=value format, separated by commas. Keys can be quoted if they contain special characters. Leave empty for default values.
+                                            Example:
+                                            replicaCount=2, image.tag=v1.0.0, ingress.enabled=true, resources.limits.cpu=100m, resources.limits.memory=128Mi, "my.special.key"="special value"
+                                            ''', 
+                            defaultValue: '')
+                    ]
+                
+                if (customValues.CUSTOM_VALUES.trim()) {
+                    def parseKeyValue = { pair ->
+                        def parts = pair.split('=', 2)
+                        def key = parts[0].trim().replaceAll('^"|"$', '') // Remove surrounding quotes if present
+                        def value = parts.size() > 1 ? parts[1].trim() : ''
+                        [key, value]
+                    }
+                    
+                    def yamlContent = customValues.CUSTOM_VALUES.split(',').collect { pair ->
+                        def (key, value) = parseKeyValue(pair)
+                        def keys = key.split('\\.')
+                        def yamlLine = keys.inject('') { result, k -> result + '  ' * k.size() + k + ':' }
+                        yamlLine + ' ' + value
+                    }.join('\n')
+                    
+                    writeFile file: 'custom-values.yaml', text: yamlContent
+                    env.CUSTOM_VALUES_FILE = 'custom-values.yaml'
+                } else {
+                    env.CUSTOM_VALUES_FILE = ''
+                }
+            }
+        }
+    }
+
         stage('Deploy Helm Chart') {
             when {
                 expression { params.ACTION == 'Deploy' }
             }
             steps {
                 script {
-                    sh """
+                    def deployCommand = """
                         helm upgrade --install ${env.SELECTED_CHART} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
                         --namespace ${NAMESPACE} \
                         --version ${env.RELEASE_TAG} \
                         --wait \
                         --kubeconfig ${KUBECONFIG}
                     """
+                    
+                    if (env.CUSTOM_VALUES_FILE) {
+                        deployCommand += " -f ${env.CUSTOM_VALUES_FILE}"
+                    }
+                    
+                    sh deployCommand
                 }
             }
         }
