@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         // GitHub repository information
-        GITHUB_REPO = 'garrygerber/garrygerber.github.io'
+        GITHUB_REPO = 'garrygerber/simple-web'
         // Kubernetes namespace for deployment
         NAMESPACE = 'garry'
         // GitHub credentials ID
@@ -15,7 +15,7 @@ pipeline {
         // Helm repository name
         HELM_REPO_NAME = 'simple-web'
         // Helm repository URL
-        HELM_REPO_URL = 'https://garrygerber.github.io'
+        HELM_REPO_URL = 'https://garrygerber.github.io/simple-web'
         // Kubeconfig file path
         KUBECONFIG = './kubeconfig'
     }
