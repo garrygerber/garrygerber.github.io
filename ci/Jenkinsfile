@@ -153,7 +153,7 @@ pipeline {
                     
                     // Wait for pods to be ready
                     timeout(time: 2, unit: 'MINUTES') {
-                        sh "kubectl wait --for=condition=Ready pods -l app.kubernetes.io/instance=${env.SELECTED_CHART} -n ${NAMESPACE} --timeout=120s"
+                        sh "kubectl wait --for=condition=Ready pods -l app.kubernetes.io/instance=${env.SELECTED_CHART}-${env.RELEASE_TAG} -n ${NAMESPACE} --timeout=120s"
                     }
                 }
             }
