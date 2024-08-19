@@ -107,7 +107,8 @@ jobs:
 
       - name: Push changes
         run: |
-          git checkout gh-pages -- index.html
+          git fetch origin gh-pages
+          git checkout gh-pages -- index.yaml
           git add index.yaml
           git commit -m "chore: Update Helm chart index for ${{ matrix.chart }}"
           git push
