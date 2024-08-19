@@ -1,3 +1,4 @@
+# Kubernetes Ingress
 {{- if (index .Values "ingress" "enabled") }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -5,15 +6,18 @@ metadata:
   name: {{ include "simple-web.fullname" . }}
   labels:
     {{- include "simple-web.labels" . | nindent 4 }}
+  # Ingress annotations
   {{- with (index .Values "ingress" "annotations") }} 
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  # TLS configuration
   {{- with (index .Values "ingress" "tls") }}
   tls:
     {{- tpl (toYaml .) $ | nindent 4 }}
   {{- end }}
+  # Ingress rules
   {{- with (index .Values "ingress" "hosts") }}
   rules:
     {{- tpl (toYaml .) $ | nindent 4 }}

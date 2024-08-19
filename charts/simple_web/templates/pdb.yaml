@@ -1,3 +1,4 @@
+# Kubernetes PodDisruptionBudget
 {{- if (index .Values "podDisruptionBudget" "enabled") }}
 apiVersion: policy/v1
 kind: PodDisruptionBudget
@@ -7,13 +8,16 @@ metadata:
     {{- include "simple-web.labels" . | nindent 4 }}
 spec:
 {{- with (index .Values "podDisruptionBudget") }}
+  # Minimum number of Pods that must be available during a disruption
   {{- with .minAvailable }}
   minAvailable: {{ . }}
   {{- end }}
+  # Maximum number of Pods that can be unavailable during a disruption
   {{- with .maxUnavailable }}
   maxUnavailable: {{ . }}
   {{- end }}
 {{- end }}
+  # Pod selector for the PodDisruptionBudget
   selector:
     matchLabels:
       {{- include "simple-web.selectorLabels" . | nindent 6 }}

@@ -2,17 +2,26 @@ pipeline {
     agent any
     
     environment {
+        // GitHub repository information
         GITHUB_REPO = 'garrygerber/garrygerber.github.io'
+        // Kubernetes namespace for deployment
         NAMESPACE = 'garry'
+        // GitHub credentials ID
         GITHUB_CRED_ID = 'GITHUB_CRED_ID'
+        // AKS cluster name
         AKS_CLUSTER_NAME = 'devops-interview-aks'
+        // Azure resource group
         RESOURCE_GROUP = 'devops-interview-rg'
+        // Helm repository name
         HELM_REPO_NAME = 'simple-web'
+        // Helm repository URL
         HELM_REPO_URL = 'https://garrygerber.github.io'
+        // Kubeconfig file path
         KUBECONFIG = './kubeconfig'
     }
     
     parameters {
+        // User input for action to perform
         choice(name: 'ACTION', choices: ['Deploy', 'Destroy'], description: 'Select whether to deploy or destroy a Helm release')
     }
     
@@ -20,14 +29,16 @@ pipeline {
         stage('Setup') {
             steps {
                 script {
+                    // Set build display name
                     currentBuild.displayName = "${params.ACTION}"
+                    // Login to Azure, get AKS credentials, and convert kubeconfig for Azure AD authentication
                     sh """
                         az login -i
                         az aks get-credentials --resource-group ${RESOURCE_GROUP} --name ${AKS_CLUSTER_NAME} --file ${KUBECONFIG}
                         kubelogin convert-kubeconfig -l msi
                     """
                     
-                    // Check if the Helm repo exists, add if it doesn't
+                    // Check if Helm repo exists, add if it doesn't
                     def repoExists = sh(script: "helm repo list | grep -q ${HELM_REPO_NAME}", returnStatus: true)
                     if (repoExists != 0) {
                         echo "Helm Repo is Missing, Adding repository ${HELM_REPO_NAME}"
@@ -45,12 +56,14 @@ pipeline {
             }
             steps {
                 script {
+                    // Get list of available charts
                     def chartNames = sh(script: """
                         helm search repo ${HELM_REPO_NAME}/ | grep ${HELM_REPO_NAME}/ | awk '{print \$1}' | sed 's|${HELM_REPO_NAME}/||g' | sort -u
                     """, returnStdout: true).trim()
                     
                     if (chartNames) {
                         def chartList = chartNames.split('\n').toList()
+                        // User input to select chart
                         def selection = input(
                             message: "Select the chart to ${params.ACTION}:",
                             parameters: [choice(name: 'CHART', choices: chartList, description: 'Available charts')]
@@ -70,12 +83,14 @@ pipeline {
             }
             steps {
                 script {
+                    // Get list of available versions for the selected chart
                     def versions = sh(script: """
                         helm search repo ${HELM_REPO_NAME}/${env.SELECTED_CHART} --versions | grep ${HELM_REPO_NAME}/${env.SELECTED_CHART} | awk '{print \$2}' | sort -rV
                     """, returnStdout: true).trim()
                     
                     if (versions) {
                         def versionList = versions.split('\n').toList()
+                        // User input to select version
                         def selection = input(
                             message: 'Select the version to deploy:',
                             parameters: [choice(name: 'VERSION', choices: versionList, description: 'Available versions')]
@@ -95,6 +110,7 @@ pipeline {
             }
             steps {
                 script {
+                    // User input for custom values
                     def customValues = input(
                         message: 'Enter custom values for the Helm chart (optional)',
                         parameters: [
@@ -104,6 +120,7 @@ pipeline {
                         ]
                     )
                     
+                    // Process custom values
                     if (customValues.trim()) {
                         env.CUSTOM_VALUES = customValues.split(',').collect { "--set ${it.trim()}" }.join(' ')
                     } else {
@@ -119,6 +136,7 @@ pipeline {
             }
             steps {
                 script {
+                    // Helm upgrade/install command
                     def deployCommand = """
                         helm upgrade --install ${env.SELECTED_CHART}-${env.RELEASE_TAG} ${HELM_REPO_NAME}/${env.SELECTED_CHART} \
                         --namespace ${NAMESPACE} \
@@ -130,8 +148,10 @@ pipeline {
                         helm test ${env.SELECTED_CHART}-${env.RELEASE_TAG} --namespace ${NAMESPACE}
                     """
                     
+                    // Execute Helm deployment
                     sh deployCommand
                     
+                    // Wait for pods to be ready
                     timeout(time: 2, unit: 'MINUTES') {
                         sh "kubectl wait --for=condition=Ready pods -l app.kubernetes.io/instance=${env.SELECTED_CHART} -n ${NAMESPACE} --timeout=120s"
                     }
@@ -146,6 +166,7 @@ pipeline {
             steps {
                 script {
                     try {
+                        // Get list of existing Helm releases
                         def existingReleases = sh(
                             script: "helm list -n ${NAMESPACE} --kubeconfig ${KUBECONFIG} -o json",
                             returnStdout: true
@@ -158,6 +179,7 @@ pipeline {
                                 "${it.name} (Chart: ${it.chart}, Version: ${it.app_version})"
                             }
                             
+                            // User input to select release to destroy
                             def selection = input(
                                 message: 'Select the release to destroy:',
                                 parameters: [
@@ -180,6 +202,7 @@ pipeline {
                             
                             echo "Destroying Helm release: ${env.RELEASE_NAME}"
                             
+                            // Helm uninstall command
                             def destroyCommand = """
                                     helm uninstall ${env.RELEASE_NAME} \
                                     --namespace ${NAMESPACE} \
@@ -189,7 +212,7 @@ pipeline {
                                 """
                             sh destroyCommand
                                                         
-                            // Check if any resources are left
+                            // Check for leftover resources
                             def leftoverResources = sh(
                                 script: """
                                     kubectl get all -n ${NAMESPACE} -l app.kubernetes.io/instance=${env.RELEASE_NAME} -o name
@@ -197,6 +220,7 @@ pipeline {
                                 returnStdout: true
                             ).trim()
                             
+                            // Force delete leftover resources if any
                             if (leftoverResources) {
                                 echo "Warning: Some resources were not properly removed:"
                                 echo leftoverResources
@@ -223,6 +247,7 @@ pipeline {
     
     post {
         always {
+            // Clean up kubeconfig file
             sh 'rm -f ${KUBECONFIG}'
         }
         success {

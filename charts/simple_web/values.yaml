@@ -1,14 +1,24 @@
+# Default values for simple-web Helm chart
+
+# Enable or disable the deployment
 enabled: true
+
+# Number of replicas for the deployment
 replicaCount: 3
+
+# Container image configuration
 image:
   registry: acrinterview.azurecr.io
   repository: simple-web
   tag: latest
   pullPolicy: IfNotPresent
 
+# Override the chart name
 nameOverride: ""
+# Override the full name of the chart
 fullnameOverride: ""
 
+# Service configuration
 service:
   enabled: true
   ports:
@@ -18,6 +28,7 @@ service:
       name: http
   type: ClusterIP
 
+# Container configuration
 container:
   resources:
     limits:
@@ -31,11 +42,13 @@ container:
       containerPort: 80
       protocol: TCP
 
+# ServiceAccount configuration
 serviceAccount:
   create: true
   annotations: {}
   name: ""
 
+# Pod security context
 podSecurityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
@@ -44,6 +57,7 @@ podSecurityContext: {}
   # seccompProfile:
   #   type: RuntimeDefault
 
+# Container security context
 containerSecurityContext: {}
   # allowPrivilegeEscalation: false
   # capabilities:
@@ -51,8 +65,10 @@ containerSecurityContext: {}
   #     - ALL
   # readOnlyRootFilesystem: true
 
+# Image pull secrets for private registries
 imagePullSecrets: {}
 
+# Ingress configuration
 ingress:
   enabled: true
   className: ""
@@ -70,6 +86,7 @@ ingress:
                 port: 
                   number: 80
 
+# Network policy configuration
 networkPolicy:
   enabled: false
   policyTypes:
@@ -86,11 +103,13 @@ networkPolicy:
         - ipBlock:
             cidr: 0.0.0.0/0
 
-
+# Node selector for pod scheduling
 nodeSelector: {}
 
+# Tolerations for pod scheduling
 tolerations: []
 
+# Affinity rules for pod scheduling
 affinity: {}
   # podAntiAffinity:
   #   preferredDuringSchedulingIgnoredDuringExecution:
@@ -112,10 +131,13 @@ affinity: {}
   #           - "{{ default .Chart.AppVersion .Values.image.tag }}"
   #       topologyKey: "kubernetes.io/hostname"
 
+# Priority class name for pod scheduling
 priorityClassName: ""
 
+# Pod annotations
 podAnnotations: {}
 
+# Liveness probe configuration
 livenessProbe:
   httpGet:
     path: /
@@ -123,6 +145,7 @@ livenessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10
 
+# Readiness probe configuration
 readinessProbe:
   httpGet:
     path: /
@@ -130,6 +153,7 @@ readinessProbe:
   initialDelaySeconds: 30
   periodSeconds: 10
 
+# KEDA autoscaler configuration
 kedaScaler:
   enabled: true
   minReplicaCount: 1
@@ -150,6 +174,7 @@ kedaScaler:
         end: "0 12 * * *"
         desiredReplicas: "3"
 
+# Pod Disruption Budget configuration
 podDisruptionBudget:
   enabled: false
   maxUnavailable: 1

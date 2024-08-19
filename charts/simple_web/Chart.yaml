@@ -4,12 +4,16 @@ description: A Helm chart for deploying a web application
 type: application
 version: 0.8.4
 appVersion: "1.0.0"
+# Keywords for chart search and categorization
 keywords:
   - web
   - simple
-home: https://github.com/garrygerber/simple-web
+# Home page URL for the project
+home: https://github.com/garrygerber/garrygerber.github.io
+# Source code repository URL
 sources:
-  - https://github.com/garrygerber/simple-web
+  - https://github.com/garrygerber/garrygerber.github.io
+# Chart maintainers
 maintainers:
   - name: Garry Gerber
     email: garry@garrygerber.com

@@ -1,3 +1,4 @@
+# KEDA ScaledObject
 {{- if (index .Values "kedaScaler" "enabled") }}
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
@@ -6,11 +7,15 @@ metadata:
   labels:
     {{- include "simple-web.labels" . | nindent 4 }}
 spec:
+  # Reference to the target resource (Deployment) to scale
   scaleTargetRef:
     name: {{ include "simple-web.fullname" . }}
     kind: Deployment
+  # Minimum number of replicas
   minReplicaCount: {{ .Values.kedaScaler.minReplicaCount }}
+  # Maximum number of replicas
   maxReplicaCount: {{ .Values.kedaScaler.maxReplicaCount }}
+  # KEDA scaling triggers
 {{- with (index .Values "kedaScaler" "triggers") }}
   triggers:
   {{- range . }}

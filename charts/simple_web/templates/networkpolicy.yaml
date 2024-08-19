@@ -1,3 +1,4 @@
+# Kubernetes NetworkPolicy
 {{- if (index .Values "networkPolicy" "enabled") }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -6,17 +7,21 @@ metadata:
   labels:
     {{- include "simple-web.labels" . | nindent 4 }}
 spec:
+  # Pod selector for the NetworkPolicy
   podSelector:
     matchLabels:
       {{- include "simple-web.selectorLabels" . | nindent 6 }}
+  # Policy types (Ingress and/or Egress)
   {{- with (index .Values "networkPolicy" "policyTypes") }}
   policyTypes:
     {{- toYaml . | nindent 4}}
   {{- end }}
+  # Ingress rules
   {{- with (index .Values "networkPolicy" "ingress") }}
   ingress:
     {{- toYaml . | nindent 4 }}
   {{- end }}
+  # Egress rules
   {{- with (index .Values "networkPolicy" "egress") }}
   egress:
     {{- toYaml . | nindent 4 }}

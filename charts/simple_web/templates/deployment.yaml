@@ -1,3 +1,4 @@
+# Kubernetes Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -5,12 +6,15 @@ metadata:
   labels:
     {{- include "simple-web.labels" . | nindent 4 }}
 spec:
+  # Define the number of replicas if KEDA ScaledObject is not enabled
   {{- if not (index .Values "kedaScaler" "enabled") }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  # Selector for the Pods managed by this Deployment
   selector:
     matchLabels:
       {{- include "simple-web.selectorLabels" . | nindent 6 }}
+  # Template for creating Pods
   template:
     metadata:
       {{- with (index .Values "podAnnotations") }} 
@@ -20,53 +24,67 @@ spec:
       labels:
         {{- include "simple-web.selectorLabels" . | nindent 8 }}
     spec:
+      # Image pull secrets for private registries
       {{- with (index .Values "imagePullSecrets") }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      # ServiceAccount configuration
       {{- if (index .Values "serviceAccount" "create") }} 
       serviceAccountName: {{ include "simple-web.serviceAccountName" . }}
       {{- end }}
+      # Pod security context
       {{- with (index .Values "podSecurityContext") }}
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      # Container definition
       containers:
         - name: {{ .Chart.Name }}
+          # Container security context
           {{- with (index .Values "containerSecurityContext") }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          # Container image configuration
           image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          # Container ports
           ports:
             {{- with (index .Values "container" "ports") }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
+          # Liveness probe configuration
           {{- with (index .Values "livenessProbe") }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          # Readiness probe configuration
           {{- with (index .Values "readinessProbe") }}
           readinessProbe:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          # Resource requests and limits
           {{- with (index .Values "container" "resources") }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+      # Node selector for Pod scheduling
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- tpl (toYaml .) $ | nindent 8 }}
       {{- end }}
+      # Affinity rules for Pod scheduling
       {{- with .Values.affinity }}
       affinity:
         {{- tpl (toYaml .) $ | nindent 8 }}
       {{- end }}
+      # Tolerations for Pod scheduling
       {{- with .Values.tolerations }}
       tolerations:
         {{- tpl (toYaml .) $ | nindent 8 }}
       {{- end }}
+      # Priority class name for Pod scheduling
       {{- if (index .Values "priorityClassName") }}
       priorityClassName: {{ .Values.priorityClassName }}
       {{- end }}

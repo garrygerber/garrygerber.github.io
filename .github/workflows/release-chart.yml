@@ -1,5 +1,7 @@
+# GitHub Actions workflow for releasing Helm charts
 name: Release Chart
 
+# Trigger on pushes to main branch or manual workflow dispatch
 on:
   push:
     branches:
@@ -12,12 +14,14 @@ on:
         description: 'Chart to release (leave empty to release all)'
         required: false
 
+# Permissions required for the workflow
 permissions:
   contents: write
   pages: write
   id-token: write
 
 jobs:
+  # Job to prepare the list of charts to be released
   prepare:
     runs-on: ubuntu-latest
     outputs:
@@ -43,6 +47,7 @@ jobs:
           fi
           echo "charts=$charts" >> $GITHUB_OUTPUT
 
+  # Job to release the charts
   release:
     needs: prepare
     runs-on: ubuntu-latest
@@ -88,4 +93,3 @@ jobs:
         with:
           charts_dir: charts
           charts_repo_url: https://github.com/${{ github.repository }}
-

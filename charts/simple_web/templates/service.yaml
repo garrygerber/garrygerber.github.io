@@ -1,3 +1,4 @@
+# Kubernetes Service
 {{- if (index .Values "service" "enabled") }}
 apiVersion: v1
 kind: Service
@@ -6,9 +7,12 @@ metadata:
   labels:
     {{- include "simple-web.labels" . | nindent 4 }}
 spec:
+  # Service type (e.g., ClusterIP, NodePort, LoadBalancer)
   type: {{ .Values.service.type }}
+  # Service ports
   ports:
     {{- toYaml .Values.service.ports | nindent 4 }}
+  # Pod selector for the Service
   selector:
     {{- include "simple-web.selectorLabels" . | nindent 4 }}
 {{- end }}
