@@ -71,7 +71,7 @@ imagePullSecrets: {}
 # Ingress configuration
 ingress:
   enabled: true
-  className: "k8s.io/ingress-nginx"
+  className: "nginx"
   annotations: {}
   tls: {}
   hosts:
