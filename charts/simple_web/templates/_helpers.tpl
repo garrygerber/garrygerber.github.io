@@ -14,11 +14,11 @@ If release name contains chart name it will be used as a full name.
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- $name := default .Chart.Name .Values.nameOverride | replace "." "-" }}
 {{- if contains $name .Release.Name }}
 {{- .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- printf "%s-%s" $name .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" $name .Release.Name | trunc 63 | replace "." "-" | trimSuffix "-" }}
 {{- end }}
 {{- end }}
 {{- end }}
