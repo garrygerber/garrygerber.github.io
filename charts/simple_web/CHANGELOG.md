@@ -1,3 +1,12 @@
+# [0.9.0](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.21...simple_web-v0.9.0) (2024-08-19)
+
+
+### Features
+
+* :sparkles: update chart metadata ([3db4cbd](https://github.com/garrygerber/simple-web/commit/3db4cbd1316f5904e81d61afc9d836fdc96917dd))
+
+
+
 ## [0.8.21](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.20...simple_web-v0.8.21) (2024-08-19)
 
 
@@ -33,15 +42,6 @@
 
 * :test_tube: test with --merge ([89cb5ce](https://github.com/garrygerber/simple-web/commit/89cb5ce2d4e88aa4d3dfa6694c8ad18b782b3e34))
 * update dummy value in simple-web values.yaml ([5e10b4a](https://github.com/garrygerber/simple-web/commit/5e10b4a2af1a71f04cfdbb8e115838d2aa2f130a))
-
-
-
-## [0.8.17](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.16...simple_web-v0.8.17) (2024-08-19)
-
-
-### Bug Fixes
-
-* update dummy value in simple-web values.yaml ([e970572](https://github.com/garrygerber/simple-web/commit/e9705722780b36ada0a6f8f363fc67e85fc490e6))
 
 
 
