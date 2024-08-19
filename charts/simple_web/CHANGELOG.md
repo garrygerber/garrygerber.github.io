@@ -1,3 +1,13 @@
+## [0.8.16](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.15...simple_web-v0.8.16) (2024-08-19)
+
+
+### Bug Fixes
+
+* :pencil2: typo ([56ce93b](https://github.com/garrygerber/simple-web/commit/56ce93b1c60fb56ca56e0373cec5ebb4a54cd00c))
+* update dummy value in simple-web values.yaml ([cb99d35](https://github.com/garrygerber/simple-web/commit/cb99d35889df00b884e4f363d87641ea417a33a4))
+
+
+
 ## [0.8.15](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.14...simple_web-v0.8.15) (2024-08-19)
 
 
@@ -57,15 +67,6 @@
 ### Bug Fixes
 
 * :test_tube: update dummy2 ([9942d07](https://github.com/garrygerber/simple-web/commit/9942d07f5d1cec003c7d0e7c9da1c2b7044690af))
-
-
-
-## [0.8.11](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.10...simple_web-v0.8.11) (2024-08-19)
-
-
-### Bug Fixes
-
-* :test_tube: update dummy ([14da944](https://github.com/garrygerber/simple-web/commit/14da944f1757599c8dbe4f50ea85a207cec92fbc))
 
 
 
