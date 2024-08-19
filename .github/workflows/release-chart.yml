@@ -107,5 +107,5 @@ jobs:
           cr index -i ./index.yaml --pages-branch main -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }}
 
           git add index.yaml
-          git commit index.yaml -m "chore: Update Helm chart index for ${{ matrix.chart }}"
+          git commit index.yaml -m "chore: Update Helm chart index for ${{ matrix.chart }} [skip ci]"
           git push
