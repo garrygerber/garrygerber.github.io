@@ -1,3 +1,13 @@
+## [0.8.15](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.14...simple_web-v0.8.15) (2024-08-19)
+
+
+### Bug Fixes
+
+* :bug: with commit change ([c25063c](https://github.com/garrygerber/simple-web/commit/c25063c784c87745efb7ba822a34488e79af179e))
+* update dummy value in simple-web values.yaml ([c0c82a6](https://github.com/garrygerber/simple-web/commit/c0c82a69717f210c4e150b25eb5f05ba27d7dc1f))
+
+
+
 ## [0.8.14](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.13...simple_web-v0.8.14) (2024-08-19)
 
 
@@ -56,15 +66,6 @@
 ### Bug Fixes
 
 * :test_tube: update dummy ([14da944](https://github.com/garrygerber/simple-web/commit/14da944f1757599c8dbe4f50ea85a207cec92fbc))
-
-
-
-## [0.8.10](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.9...simple_web-v0.8.10) (2024-08-19)
-
-
-### Bug Fixes
-
-* :test_tube: update dummy ([6ee5707](https://github.com/garrygerber/simple-web/commit/6ee57073a6983b3fdabf378cbe2635fe81f14694))
 
 
 
