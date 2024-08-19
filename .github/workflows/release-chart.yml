@@ -70,6 +70,11 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
 
+      - name: Install chart-releaser
+        run: |
+          curl -L https://github.com/helm/chart-releaser/releases/download/v1.6.0/chart-releaser_1.6.0_linux_amd64.tar.gz | tar xzf -
+          sudo mv cr /usr/local/bin/cr
+
       - name: Run helm lint
         run: |
           helm lint ./charts/${{ matrix.chart }}
@@ -87,9 +92,21 @@ jobs:
           skip-git-pull: 'true'
           skip-commit: 'true'
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
+      - name: Package and Release Chart
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          charts_dir: charts
+        run: |
+          # Package the chart
+          cr package ./charts/${{ matrix.chart }}
+
+          # Upload the packaged chart
+          cr upload -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }} --skip-existing
+
+          # Update Helm chart index
+          cr index -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }} -i index.yaml 
+
+      - name: Push changes
+        run: |
+          git add index.yaml
+          git commit -m "chore: Update Helm chart index for ${{ matrix.chart }}"
+          git push
