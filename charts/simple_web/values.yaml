@@ -178,5 +178,3 @@ kedaScaler:
 podDisruptionBudget:
   enabled: false
   maxUnavailable: 1
-
-dummy: "6d065757cbdc4d41"
