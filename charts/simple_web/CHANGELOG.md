@@ -1,3 +1,12 @@
+## [0.8.2](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.1...simple_web-v0.8.2) (2024-08-19)
+
+
+### Bug Fixes
+
+* :bug: fix full name ([94ad6b5](https://github.com/garrygerber/garrygerber.github.io/commit/94ad6b5f295a6b87c0972e1cea97ff2aeff77884))
+
+
+
 ## [0.8.1](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.0...simple_web-v0.8.1) (2024-08-18)
 
 
@@ -38,16 +47,6 @@
 ### Features
 
 * :zap: add timeouts ([eadac54](https://github.com/garrygerber/garrygerber.github.io/commit/eadac54370520d0811c2800555b6e0f9f50a1ec2))
-
-
-
-## [0.5.3](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.2...simple_web-v0.5.3) (2024-08-18)
-
-
-### Bug Fixes
-
-* :bug: fix versionedName to be DNS compatible ([8d8aaf8](https://github.com/garrygerber/garrygerber.github.io/commit/8d8aaf8e834ddb5a14e163aeee2263f7d75a3241))
-* :bug: improve object scale triggers ([e91af9a](https://github.com/garrygerber/garrygerber.github.io/commit/e91af9aabdd92088d9aaadfd04f3e82988f43772))
 
 
 
