@@ -1,3 +1,12 @@
+## [0.8.10](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.9...simple_web-v0.8.10) (2024-08-19)
+
+
+### Bug Fixes
+
+* :test_tube: update dummy ([6ee5707](https://github.com/garrygerber/garrygerber.github.io/commit/6ee57073a6983b3fdabf378cbe2635fe81f14694))
+
+
+
 ## [0.8.9](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.8...simple_web-v0.8.9) (2024-08-19)
 
 
@@ -33,15 +42,6 @@
 
 * :bug: fix wait ([939fd32](https://github.com/garrygerber/garrygerber.github.io/commit/939fd32b706c8aa32012689ed97c0b986e808022))
 * :sparkles: add ingress class with default ([4100fd9](https://github.com/garrygerber/garrygerber.github.io/commit/4100fd9232c0776d345d670e5b8d691ab19a85ed))
-
-
-
-## [0.8.5](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.4...simple_web-v0.8.5) (2024-08-19)
-
-
-### Bug Fixes
-
-* :bug: remove extra - symbol ([38fc5b1](https://github.com/garrygerber/garrygerber.github.io/commit/38fc5b1ca5230c0ae3c66bddf28f2f05b7b4613c))
 
 
 
