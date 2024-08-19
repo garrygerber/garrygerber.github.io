@@ -1,3 +1,12 @@
+## [0.8.9](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.8...simple_web-v0.8.9) (2024-08-19)
+
+
+### Bug Fixes
+
+* :arrow_down: use version 1.4.1 of chart-releaser-action ([cd792a9](https://github.com/garrygerber/garrygerber.github.io/commit/cd792a9bf9929fe7f8aa5cf54c5d588423dff619))
+
+
+
 ## [0.8.8](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.7...simple_web-v0.8.8) (2024-08-19)
 
 
@@ -33,15 +42,6 @@
 ### Bug Fixes
 
 * :bug: remove extra - symbol ([38fc5b1](https://github.com/garrygerber/garrygerber.github.io/commit/38fc5b1ca5230c0ae3c66bddf28f2f05b7b4613c))
-
-
-
-## [0.8.4](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.3...simple_web-v0.8.4) (2024-08-19)
-
-
-### Bug Fixes
-
-* :bug: fix helm test ([23e6d9a](https://github.com/garrygerber/garrygerber.github.io/commit/23e6d9a62d1d8eb5088380f0f2b96059cf3982fc))
 
 
 
