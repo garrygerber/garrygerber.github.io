@@ -1,3 +1,12 @@
+## [0.8.3](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.2...simple_web-v0.8.3) (2024-08-19)
+
+
+### Bug Fixes
+
+* :bug: fix dns valid name ([f279ea4](https://github.com/garrygerber/garrygerber.github.io/commit/f279ea4767a190e695e093769a398350606cba26))
+
+
+
 ## [0.8.2](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.1...simple_web-v0.8.2) (2024-08-19)
 
 
@@ -38,15 +47,6 @@
 
 * :art: populate display name ([63aecf7](https://github.com/garrygerber/garrygerber.github.io/commit/63aecf76218280f132d596a533a5d64bc99d51d2))
 * :sparkles: support regular and versioned services ([264be41](https://github.com/garrygerber/garrygerber.github.io/commit/264be41a3fa21e17b71dec23234e97717e92d5af))
-
-
-
-# [0.6.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.5.3...simple_web-v0.6.0) (2024-08-18)
-
-
-### Features
-
-* :zap: add timeouts ([eadac54](https://github.com/garrygerber/garrygerber.github.io/commit/eadac54370520d0811c2800555b6e0f9f50a1ec2))
 
 
 
