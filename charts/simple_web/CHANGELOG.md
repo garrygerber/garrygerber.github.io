@@ -1,3 +1,13 @@
+## [0.8.14](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.13...simple_web-v0.8.14) (2024-08-19)
+
+
+### Bug Fixes
+
+* :bug: cleanup and commit only index.html ([0ab8ee5](https://github.com/garrygerber/simple-web/commit/0ab8ee5ecca4252e0d349265b0296ee9412927f4))
+* update dummy value in simple-web values.yaml ([13bf578](https://github.com/garrygerber/simple-web/commit/13bf578f209aa26efa45cf89f78b4e883f1d5948))
+
+
+
 ## [0.8.13](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.12...simple_web-v0.8.13) (2024-08-19)
 
 
@@ -55,15 +65,6 @@
 ### Bug Fixes
 
 * :test_tube: update dummy ([6ee5707](https://github.com/garrygerber/simple-web/commit/6ee57073a6983b3fdabf378cbe2635fe81f14694))
-
-
-
-## [0.8.9](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.8...simple_web-v0.8.9) (2024-08-19)
-
-
-### Bug Fixes
-
-* :arrow_down: use version 1.4.1 of chart-releaser-action ([cd792a9](https://github.com/garrygerber/simple-web/commit/cd792a9bf9929fe7f8aa5cf54c5d588423dff619))
 
 
 
