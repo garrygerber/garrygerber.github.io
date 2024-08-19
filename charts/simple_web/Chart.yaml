@@ -9,10 +9,10 @@ keywords:
   - web
   - simple
 # Home page URL for the project
-home: https://github.com/garrygerber/garrygerber.github.io
+home: https://github.com/garrygerber/simple-web
 # Source code repository URL
 sources:
-  - https://github.com/garrygerber/garrygerber.github.io
+  - https://github.com/garrygerber/simple-web
 # Chart maintainers
 maintainers:
   - name: Garry Gerber
