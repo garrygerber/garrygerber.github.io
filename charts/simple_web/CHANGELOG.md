@@ -1,3 +1,13 @@
+## [0.8.6](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.5...simple_web-v0.8.6) (2024-08-19)
+
+
+### Bug Fixes
+
+* :bug: fix wait ([939fd32](https://github.com/garrygerber/garrygerber.github.io/commit/939fd32b706c8aa32012689ed97c0b986e808022))
+* :sparkles: add ingress class with default ([4100fd9](https://github.com/garrygerber/garrygerber.github.io/commit/4100fd9232c0776d345d670e5b8d691ab19a85ed))
+
+
+
 ## [0.8.5](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.4...simple_web-v0.8.5) (2024-08-19)
 
 
@@ -31,16 +41,6 @@
 ### Bug Fixes
 
 * :bug: fix full name ([94ad6b5](https://github.com/garrygerber/garrygerber.github.io/commit/94ad6b5f295a6b87c0972e1cea97ff2aeff77884))
-
-
-
-## [0.8.1](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.0...simple_web-v0.8.1) (2024-08-18)
-
-
-### Bug Fixes
-
-* :bug: fix overlapping releases ([b124601](https://github.com/garrygerber/garrygerber.github.io/commit/b1246013182e7ad3eca53a6034652ebd6f50d6f0))
-* :bug: set namespace in test pod ([1e58a1c](https://github.com/garrygerber/garrygerber.github.io/commit/1e58a1cf8707d966db93a1b4e5e0e7cab19c00ef))
 
 
 
