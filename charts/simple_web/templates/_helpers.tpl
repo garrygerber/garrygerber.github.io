@@ -24,24 +24,6 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
-Create a suffix with chart version and image tag
-*/}}
-{{- define "simple-web.versionSuffix" -}}
-{{- $tag := default .Chart.AppVersion .Values.image.tag -}}
-{{- printf "%s-%s" .Chart.Version $tag | replace "+" "_" | trunc 63 | trimSuffix "-" }}
-{{- end }}
-
-{{/*
-Create a name with version suffix
-*/}}
-{{- define "simple-web.versionedName" -}}
-{{- $name := include "simple-web.fullname" . -}}
-{{- $version := include "simple-web.versionSuffix" . | replace "." "-" -}}
-{{- printf "%s-%s" $name $version | lower | trunc 63 | trimSuffix "-" -}}
-{{- end }}
-
-
-{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "simple-web.chart" -}}
@@ -66,14 +48,6 @@ Selector labels
 {{- define "simple-web.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "simple-web.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Version label
-*/}}
-{{- define "simple-web.versionLabel" -}}
-helm.sh/chart: {{ include "simple-web.chart" . }}
-app.kubernetes.io/tag: {{ default .Chart.AppVersion .Values.image.tag }}
 {{- end }}
 
 {{/*

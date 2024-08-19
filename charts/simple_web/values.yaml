@@ -11,7 +11,6 @@ fullnameOverride: ""
 
 service:
   enabled: true
-  versioned: true
   ports:
     - port: 80
       targetPort: http
@@ -67,7 +66,7 @@ ingress:
             pathType: Prefix
             backend:
               service:
-                name: "{{ include \"simple-web.versionedName\" . }}"
+                name: "{{ include \"simple-web.fullname\" . }}"
                 port: 
                   number: 80
 

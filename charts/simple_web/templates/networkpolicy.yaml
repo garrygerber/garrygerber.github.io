@@ -9,7 +9,6 @@ spec:
   podSelector:
     matchLabels:
       {{- include "simple-web.selectorLabels" . | nindent 6 }}
-      {{- include "simple-web.versionLabel" . | nindent 6 }}
   {{- with (index .Values "networkPolicy" "policyTypes") }}
   policyTypes:
     {{- toYaml . | nindent 4}}

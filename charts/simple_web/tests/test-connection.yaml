@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "simple-web.versionedName" . }}-test-connection"
+  name: "{{ include "simple-web.fullname" . }}-test-connection"
   namespace: garry
   labels:
     {{- include "simple-web.labels" . | nindent 4 }}
@@ -13,5 +13,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "simple-web.versionedName" . }}:{{ (first .Values.service.ports).port }}']
+      args: ['{{ include "simple-web.fullname" . }}:{{ (first .Values.service.ports).port }}']
   restartPolicy: Never

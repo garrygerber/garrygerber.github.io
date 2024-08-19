@@ -1,21 +1,4 @@
 {{- if (index .Values "service" "enabled") }}
-{{- if (index .Values "service" "versioned") }}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "simple-web.versionedName" . }}
-  labels:
-    {{- include "simple-web.labels" . | nindent 4 }}
-spec:
-  type: {{ .Values.service.type }}
-  ports:
-    {{- toYaml .Values.service.ports | nindent 4 }}
-  selector:
-    {{- include "simple-web.selectorLabels" . | nindent 4 }}
-    {{- include "simple-web.versionLabel" . | nindent 4 }}
-{{- end }}
----
 apiVersion: v1
 kind: Service
 metadata:

@@ -2,7 +2,7 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "simple-web.versionedName" . }}
+  name: {{ include "simple-web.fullname" . }}
   labels:
     {{- include "simple-web.labels" . | nindent 4 }}
 spec:
@@ -17,5 +17,4 @@ spec:
   selector:
     matchLabels:
       {{- include "simple-web.selectorLabels" . | nindent 6 }}
-      {{- include "simple-web.versionLabel" . | nindent 6 }}
 {{- end }}
