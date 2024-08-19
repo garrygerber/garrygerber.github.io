@@ -1,3 +1,12 @@
+## [0.8.12](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.11...simple_web-v0.8.12) (2024-08-19)
+
+
+### Bug Fixes
+
+* :test_tube: update dummy2 ([9942d07](https://github.com/garrygerber/simple-web/commit/9942d07f5d1cec003c7d0e7c9da1c2b7044690af))
+
+
+
 ## [0.8.11](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.10...simple_web-v0.8.11) (2024-08-19)
 
 
@@ -31,16 +40,6 @@
 ### Bug Fixes
 
 * :arrow_down: use version 1.5.0 of chart-releaser-action ([aa8868a](https://github.com/garrygerber/simple-web/commit/aa8868a335479a6a5cc57fb5092f07393a2890a9))
-
-
-
-## [0.8.7](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.6...simple_web-v0.8.7) (2024-08-19)
-
-
-### Bug Fixes
-
-* :bug: limit destroy checks and force to only allowed resource types ([9603578](https://github.com/garrygerber/simple-web/commit/960357893bbb513f2e361601b9a179135ae72959))
-* :wrench: update default ingress.className ([97e81c8](https://github.com/garrygerber/simple-web/commit/97e81c86d251b2170b8f30f7aa6b14b7032d8be0))
 
 
 
