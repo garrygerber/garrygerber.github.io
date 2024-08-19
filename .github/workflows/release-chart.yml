@@ -104,7 +104,7 @@ jobs:
 
       - name: Update Helm chart index
         run: |
-          git pull origin gh-pages --ff-only
+          git pull origin gh-pages --rebase
           git checkout gh-pages
           
           # Update the index
