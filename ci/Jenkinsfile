@@ -215,7 +215,7 @@ pipeline {
                             // Check for leftover resources
                             def leftoverResources = sh(
                                 script: """
-                                    kubectl get all -n ${NAMESPACE} -l app.kubernetes.io/instance=${env.RELEASE_NAME} -o name
+                                    kubectl get deploy,service,pod,ingress,scaledobject -n ${NAMESPACE} -l app.kubernetes.io/instance=${env.RELEASE_NAME} -o name
                                 """,
                                 returnStdout: true
                             ).trim()
@@ -229,7 +229,7 @@ pipeline {
                                     ok: "Yes, force delete"
                                 )
                                 sh """
-                                    kubectl delete all -n ${NAMESPACE} -l app.kubernetes.io/instance=${env.RELEASE_NAME} --force --grace-period=0
+                                    kubectl delete deploy,service,pod,ingress,scaledobject -n ${NAMESPACE} -l app.kubernetes.io/instance=${env.RELEASE_NAME} --force --grace-period=0
                                 """
                             }
                             
