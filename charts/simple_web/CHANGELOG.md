@@ -1,3 +1,13 @@
+## [0.8.19](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.18...simple_web-v0.8.19) (2024-08-19)
+
+
+### Bug Fixes
+
+* :bug: use helm package and remove --merge ([092fac6](https://github.com/garrygerber/simple-web/commit/092fac6945842503054476b2337bc44346291359))
+* update dummy value in simple-web values.yaml ([1939a43](https://github.com/garrygerber/simple-web/commit/1939a4324ef7c069bf5a322986e6e1fa6804fc06))
+
+
+
 ## [0.8.18](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.17...simple_web-v0.8.18) (2024-08-19)
 
 
@@ -34,16 +44,6 @@
 
 * :bug: with commit change ([c25063c](https://github.com/garrygerber/simple-web/commit/c25063c784c87745efb7ba822a34488e79af179e))
 * update dummy value in simple-web values.yaml ([c0c82a6](https://github.com/garrygerber/simple-web/commit/c0c82a69717f210c4e150b25eb5f05ba27d7dc1f))
-
-
-
-## [0.8.14](https://github.com/garrygerber/simple-web/compare/simple_web-v0.8.13...simple_web-v0.8.14) (2024-08-19)
-
-
-### Bug Fixes
-
-* :bug: cleanup and commit only index.html ([0ab8ee5](https://github.com/garrygerber/simple-web/commit/0ab8ee5ecca4252e0d349265b0296ee9412927f4))
-* update dummy value in simple-web values.yaml ([13bf578](https://github.com/garrygerber/simple-web/commit/13bf578f209aa26efa45cf89f78b4e883f1d5948))
 
 
 
