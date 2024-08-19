@@ -103,10 +103,4 @@ jobs:
           cr upload -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }} --skip-existing
 
           # Update Helm chart index
-          cr index -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }} -i index.yaml --pages-branch gh-pages
-
-      - name: Push changes
-        run: |
-          git add index.yaml
-          git commit -m "chore: Update Helm chart index for ${{ matrix.chart }}"
-          git push
+          cr index -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }} -i index.yaml --push
