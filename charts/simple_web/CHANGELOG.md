@@ -1,3 +1,12 @@
+## [0.8.4](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.3...simple_web-v0.8.4) (2024-08-19)
+
+
+### Bug Fixes
+
+* :bug: fix helm test ([23e6d9a](https://github.com/garrygerber/garrygerber.github.io/commit/23e6d9a62d1d8eb5088380f0f2b96059cf3982fc))
+
+
+
 ## [0.8.3](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.2...simple_web-v0.8.3) (2024-08-19)
 
 
@@ -32,21 +41,6 @@
 ### Features
 
 * :sparkles: add helm test ([3b4b45f](https://github.com/garrygerber/garrygerber.github.io/commit/3b4b45fafc3b106772c2f43159b017259b9b59d6))
-
-
-
-# [0.7.0](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.6.0...simple_web-v0.7.0) (2024-08-18)
-
-
-### Bug Fixes
-
-* :bug: use first port from service ([9095bc3](https://github.com/garrygerber/garrygerber.github.io/commit/9095bc316778ab8c2febd78b228adc4dc2bd0a8e))
-
-
-### Features
-
-* :art: populate display name ([63aecf7](https://github.com/garrygerber/garrygerber.github.io/commit/63aecf76218280f132d596a533a5d64bc99d51d2))
-* :sparkles: support regular and versioned services ([264be41](https://github.com/garrygerber/garrygerber.github.io/commit/264be41a3fa21e17b71dec23234e97717e92d5af))
 
 
 
