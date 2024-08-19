@@ -1,3 +1,12 @@
+## [0.8.8](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.7...simple_web-v0.8.8) (2024-08-19)
+
+
+### Bug Fixes
+
+* :arrow_down: use version 1.5.0 of chart-releaser-action ([aa8868a](https://github.com/garrygerber/garrygerber.github.io/commit/aa8868a335479a6a5cc57fb5092f07393a2890a9))
+
+
+
 ## [0.8.7](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.6...simple_web-v0.8.7) (2024-08-19)
 
 
@@ -33,15 +42,6 @@
 ### Bug Fixes
 
 * :bug: fix helm test ([23e6d9a](https://github.com/garrygerber/garrygerber.github.io/commit/23e6d9a62d1d8eb5088380f0f2b96059cf3982fc))
-
-
-
-## [0.8.3](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.2...simple_web-v0.8.3) (2024-08-19)
-
-
-### Bug Fixes
-
-* :bug: fix dns valid name ([f279ea4](https://github.com/garrygerber/garrygerber.github.io/commit/f279ea4767a190e695e093769a398350606cba26))
 
 
 
