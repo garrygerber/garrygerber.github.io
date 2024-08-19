@@ -96,7 +96,7 @@ jobs:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
           # Package the chart
-          cr package ./charts/${{ matrix.chart }}
+          helm package ./charts/${{ matrix.chart }} -d .cr-release-packages
 
           # Upload the packaged chart
           cr upload -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }} --skip-existing
@@ -104,7 +104,7 @@ jobs:
       - name: Update Helm chart index
         run: |
           # Update the index
-          cr index -i ./index.yaml --merge -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }}
+          cr index -i ./index.yaml -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }}
 
           git add index.yaml
           git commit index.yaml -m "chore: Update Helm chart index for ${{ matrix.chart }}"
