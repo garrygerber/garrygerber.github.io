@@ -39,6 +39,7 @@ pipeline {
                     """
                     
                     // Check if Helm repo exists, add if it doesn't
+                    sh "helm repo remove ${HELM_REPO_NAME}" 
                     def repoExists = sh(script: "helm repo list | grep -q ${HELM_REPO_NAME}", returnStatus: true)
                     if (repoExists != 0) {
                         echo "Helm Repo is Missing, Adding repository ${HELM_REPO_NAME}"
