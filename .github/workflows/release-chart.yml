@@ -104,8 +104,8 @@ jobs:
       - name: Update Helm chart index
         run: |
           # Update the index
-          cr index -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }} -i index.yaml
+          cr index -i index.yaml -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }}
 
           git add index.yaml
-          git commit -m "chore: Update Helm chart index for ${{ matrix.chart }}"
+          git commit index.html -m "chore: Update Helm chart index for ${{ matrix.chart }}"
           git push
