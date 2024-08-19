@@ -12,6 +12,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  ingressClassName: {{ .Values.ingress.className }}
   # TLS configuration
   {{- with (index .Values "ingress" "tls") }}
   tls:
