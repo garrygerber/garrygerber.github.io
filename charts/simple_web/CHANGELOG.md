@@ -1,3 +1,13 @@
+## [0.8.7](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.6...simple_web-v0.8.7) (2024-08-19)
+
+
+### Bug Fixes
+
+* :bug: limit destroy checks and force to only allowed resource types ([9603578](https://github.com/garrygerber/garrygerber.github.io/commit/960357893bbb513f2e361601b9a179135ae72959))
+* :wrench: update default ingress.className ([97e81c8](https://github.com/garrygerber/garrygerber.github.io/commit/97e81c86d251b2170b8f30f7aa6b14b7032d8be0))
+
+
+
 ## [0.8.6](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.5...simple_web-v0.8.6) (2024-08-19)
 
 
@@ -32,15 +42,6 @@
 ### Bug Fixes
 
 * :bug: fix dns valid name ([f279ea4](https://github.com/garrygerber/garrygerber.github.io/commit/f279ea4767a190e695e093769a398350606cba26))
-
-
-
-## [0.8.2](https://github.com/garrygerber/garrygerber.github.io/compare/simple_web-v0.8.1...simple_web-v0.8.2) (2024-08-19)
-
-
-### Bug Fixes
-
-* :bug: fix full name ([94ad6b5](https://github.com/garrygerber/garrygerber.github.io/commit/94ad6b5f295a6b87c0972e1cea97ff2aeff77884))
 
 
 
