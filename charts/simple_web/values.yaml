@@ -177,4 +177,4 @@ kedaScaler:
 # Pod Disruption Budget configuration
 podDisruptionBudget:
   enabled: false
-  maxUnavailable: 1
+  maxUnavailable: 1dummy: "36334dedfc39fcea"
