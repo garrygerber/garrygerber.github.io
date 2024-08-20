@@ -109,3 +109,17 @@ jobs:
           git add index.yaml
           git commit index.yaml -m "chore: Update Helm chart index for ${{ matrix.chart }} [skip ci]"
           git push
+      - name: Workflow Summary
+        run: |
+          echo "## Workflow Execution Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Branch: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Triggered by: ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Initiated by: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Chart processed: ${{ matrix.chart }}" >> $GITHUB_STEP_SUMMARY
+          if [[ "${{ steps.changelog.outputs.tag }}" != "" ]]; then
+            echo "- Chart version: ${{ steps.changelog.outputs.tag }}" >> $GITHUB_STEP_SUMMARY
+            echo "- Status: New version released" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- Status: NO new version released" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "- Chart URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/" >> $GITHUB_STEP_SUMMARY
