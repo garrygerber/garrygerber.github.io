@@ -24,7 +24,7 @@ This Helm chart deploys a simple web application on Kubernetes with advanced con
 To install the chart with the release name `simple-web`:
 
 ```bash
-$ helm repo add simple-web https://garrygerber.github.io
+$ helm repo add simple-web https://garrygerber.github.io/simple-web
 $ helm repo update
 $ helm install simple-web simple-web/simple-web
 ```
