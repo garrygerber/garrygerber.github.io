@@ -92,6 +92,7 @@ jobs:
           skip-git-pull: 'true'
 
       - name: Package and Release Chart
+        if: steps.changelog.outputs.tag
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         run: |
@@ -102,13 +103,17 @@ jobs:
           cr upload -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }} --skip-existing
 
       - name: Update Helm chart index
+        if: steps.changelog.outputs.tag
         run: |
           # Update the index
           cr index -i ./index.yaml --pages-branch main -o ${{ github.repository_owner }} -r ${{ github.event.repository.name }}
 
-          git add index.yaml
-          git commit index.yaml -m "chore: Update Helm chart index for ${{ matrix.chart }} [skip ci]"
-          git push
+          if ! git diff --exit-code -- ./index.yaml; then
+            git add index.yaml
+            git commit index.yaml -m "chore: Update Helm chart index for ${{ matrix.chart }} [skip ci]"
+            git push
+          fi
+
       - name: Workflow Summary
         run: |
           echo "## Workflow Execution Summary" >> $GITHUB_STEP_SUMMARY
