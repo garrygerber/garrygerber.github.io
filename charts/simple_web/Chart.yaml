@@ -2,7 +2,7 @@ apiVersion: v2
 name: simple-web
 description: A Helm chart for deploying a web application
 type: application
-version: 0.9.0
+version: 0.9.1
 appVersion: "1.0.0"
 # Keywords for chart search and categorization
 keywords:
